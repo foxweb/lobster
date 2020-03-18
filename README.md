@@ -1,33 +1,54 @@
 # Lobster
 
-Welcome to your new Hanami project!
+Lobster — это бэкэнд-сервис для проекта ЛКЗ ТКБ. Работает по принципу REST API; принимает JSON, отдаёт JSON. Данные хранит в PostgreSQL.
 
-## Setup
+## Установка (macOS)
 
-How to run tests:
-
-```
-% bundle exec rake
-```
-
-How to run the development console:
-
-```
-% bundle exec hanami console
+``` sh
+$ brew install postgres
+$ brew services start postgres
+$ createdb lobster
+$ createdb lobster_test
+$ git clone git@github.com:foxweb/lobster.git
+$ cd lobster
+$ bundle lobster
 ```
 
-How to run the development server:
+В `development`-окружении автоматически создаётся пользователь с почтой `admin@example.com` и паролем `secret`.
 
-```
-% bundle exec hanami server
-```
+## Использование
 
-How to prepare (create and migrate) DB for `development` and `test` environments:
+### Запуск тестов и rubocop:
 
-```
-% bundle exec hanami db prepare
-
-% HANAMI_ENV=test bundle exec hanami db prepare
+``` sh
+$ bundle exec guard
 ```
 
-Explore Hanami [guides](https://guides.hanamirb.org/), [API docs](http://docs.hanamirb.org/1.3.3/), or jump in [chat](http://chat.hanamirb.org) for help. Enjoy! 🌸
+### Запуск консоли:
+
+``` sh
+$ bundle exec hanami console
+```
+
+### Запуск development-сервера:
+
+``` sh
+$ bundle exec hanami server
+```
+
+### Проверка связи:
+
+Требуется установка `httpie`.
+
+```
+$ http :2300/healthcheck
+```
+
+## Конфигурация
+
+| Переменная              | Назначение                        |
+| ----------------------- | --------------------------------- |
+| `DATABASE_URL`          | Полный урл подключения к postgres |
+| `HMAC_SECRET`           | Ключ для генерации JWT            |
+| `JWT_TTL`               | Срок жизни JWT                    |
+| `CORS_ALLOWED_ORIGIN`   | Разрешённые в CORS хосты          |
