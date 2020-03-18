@@ -1,0 +1,10 @@
+inherit_from: ../.rubocop.yml
+
+Style/BlockDelimiters:
+  Enabled: false
+
+Lint/AmbiguousBlockAssociation:
+  Enabled: false
+
+Metrics/BlockLength:
+  ExcludedMethods: [describe, context, it, fit, let, before]

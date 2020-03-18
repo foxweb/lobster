@@ -1,0 +1,20 @@
+admin:
+  - [edit, role]
+  - [change_permissions, user]
+  - [edit, users]
+  - [enable, users]
+  - [disable, users]
+
+support:
+  # - [edit, role]
+  # - [change_permissions, user]
+  - [edit, users]
+  - [enable, users]
+  - [disable, users]
+
+user: []
+  # - [edit, role]
+  # - [change_permissions, user]
+  # - [edit, users]
+  # - [enable, users]
+  # - [disable, users]
