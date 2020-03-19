@@ -1,0 +1,36 @@
+version: '3.5'
+services:
+  database:
+    image: postgres:12.2-alpine
+    volumes:
+      - db-data:/var/lib/postgresql/data:cached
+    environment:
+      POSTGRES_DB: $POSTGRES_DB
+      POSTGRES_USER: $POSTGRES_USER
+      POSTGRES_PASSWORD: $POSTGRES_PASSWORD
+
+  app:
+    build: ..
+    command: sh -c "./bin/wait && bundle exec hanami server --server=puma --host 0.0.0.0"
+    working_dir: /app
+    stdin_open: true
+    tty: true
+    volumes:
+      - bundle-cache:/usr/local/bundle:cached
+    ports:
+      - 2300:2300
+    depends_on:
+      - database
+    environment:
+      WAIT_HOSTS: database:5432
+      HANAMI_ENV: $HANAMI_ENV
+      DATABASE_URL: "postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@database/${POSTGRES_DB}"
+      SMTP_HOST:
+      SMTP_PORT:
+      SMTP_DOMAIN:
+      SMTP_USER:
+      SMTP_PASSWORD:
+
+volumes:
+  db-data: null
+  bundle-cache: null
