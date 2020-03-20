@@ -20,6 +20,8 @@ gem 'rack-cors'
 
 gem 'puma'
 
+gem 'newrelic-hanami'
+
 group :development do
   # Code reloading
   # See: https://guides.hanamirb.org/projects/code-reloading

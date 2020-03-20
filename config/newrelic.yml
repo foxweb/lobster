@@ -1,0 +1,20 @@
+common: &default_settings
+  # Required license key associated with your New Relic account.
+  license_key: <%= ENV['NEWRELIC_LICENCE_KEY'] %>
+  app_name: lobster
+  log_level: info
+
+# Environment-specific settings are in this section.
+# RAILS_ENV or RACK_ENV (as appropriate) is used to determine the environment.
+# If your application has other named environments, configure them here.
+development:
+  <<: *default_settings
+  agent_enabled: false
+
+staging:
+  <<: *default_settings
+  agent_enabled: true
+  app_name: lobster (<%= ENV['HANAMI_ENV'] %>)
+
+production:
+  <<: *default_settings
