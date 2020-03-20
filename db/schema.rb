@@ -34,13 +34,6 @@ Sequel.connect(ENV['DATABASE_URL']) do |db|
       YAML.load_file(path)
     end
 
-    def insert_role(role_name, desired_permissions)
-      db[:roles].insert(
-        name:        role_name,
-        permissions: Sequel.pg_json(desired_permissions)
-      )
-    end
-
     load_seed_data(:roles).each do |role_name, desired_permissions|
       role = db[:roles].where(name: role_name).first
 
@@ -60,7 +53,10 @@ Sequel.connect(ENV['DATABASE_URL']) do |db|
           permissions: Sequel.pg_json(desired_permissions)
         )
       else
-        insert_role(role_name, desired_permissions)
+        db[:roles].insert(
+          name:        role_name,
+          permissions: Sequel.pg_json(desired_permissions)
+        )
       end
     end
 
