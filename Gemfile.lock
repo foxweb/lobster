@@ -1,6 +1,10 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    airbrake (10.0.1)
+      airbrake-ruby (~> 4.13)
+    airbrake-ruby (4.13.3)
+      rbtree3 (~> 0.5)
     ast (2.4.0)
     awesome_print (1.8.0)
     awesome_pry (0.0.1)
@@ -189,6 +193,7 @@ GEM
     rb-fsevent (0.10.3)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
+    rbtree3 (0.6.0)
     rexml (3.2.4)
     rom (3.3.3)
       concurrent-ruby (~> 1.0)
@@ -260,6 +265,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  airbrake
   awesome_pry
   bcrypt
   db_schema (~> 0.5.0)

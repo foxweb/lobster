@@ -21,6 +21,7 @@ gem 'rack-cors'
 gem 'puma'
 
 gem 'newrelic-hanami'
+gem 'airbrake'
 
 group :development do
   # Code reloading
