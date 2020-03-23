@@ -36,6 +36,48 @@ $ bundle exec hanami console
 $ bundle exec hanami server
 ```
 
+### Docker
+
+Файл конфигурации находится `./deploy`, соотсветственно `docker-compose` следует запускать отсюда.
+
+Сборка образа:
+```
+$ docker-compose build
+```
+
+Запустить сервисы (`-d` для демонизации):
+```
+$ docker-compose up
+```
+
+Посмотреть запущенные процессы:
+```
+$ docker-compose ps
+```
+
+Посмотреть логи:
+```
+$ docker-compose logs
+$ docker-compose logs app
+$ docker-compose logs database
+```
+
+Зайти в консоль `app`:
+```
+$ docker-compose exec app bash
+$ docker-compose exec app hanami c
+```
+
+Остановить сервисы:
+```
+$ docker-compose down
+```
+
+Удалить образы, если что-то пошло не так (`-f` для усиления):
+```
+$ docker-compose rm
+```
+
 ### Проверка связи:
 
 Требуется установка `httpie`.
