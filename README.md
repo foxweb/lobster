@@ -11,7 +11,7 @@ $ createdb lobster
 $ createdb lobster_test
 $ git clone git@github.com:foxweb/lobster.git
 $ cd lobster
-$ bundle lobster
+$ bundle install
 ```
 
 В `development`-окружении автоматически создаётся пользователь с почтой `admin@example.com` и паролем `secret`.
