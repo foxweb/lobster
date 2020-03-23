@@ -1,5 +1,9 @@
 version: '3.5'
 services:
+  swift:
+     image: morrisjobke/docker-swift-onlyone
+     environment:
+       SWIFT_DEFAULT_CONTAINER: 'imageserver'
   database:
     image: postgres:12.2-alpine
     volumes:
