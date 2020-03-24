@@ -17,7 +17,7 @@ private
   def storage
     @storage ||= Fog::Storage.new(
       provider:               'OpenStack',
-      openstack_auth_url:     'http://127.0.0.1:8080/auth/v1.0',
+      openstack_auth_url:     'http://127.0.0.1:8080',
       openstack_api_key:      'testing',
       openstack_username:     'test:tester',
       openstack_project_name: 'project30',
