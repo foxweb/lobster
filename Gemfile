@@ -9,6 +9,7 @@ gem 'pg'
 gem 'db_schema', '~> 0.5.0'
 gem 'db_schema-reader-postgres', '~> 0.2.1'
 gem 'rom-factory'
+gem 'fog-openstack'
 
 gem 'bcrypt'
 gem 'jwt'
