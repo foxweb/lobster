@@ -18,3 +18,7 @@ ADD https://github.com/ufoscout/docker-compose-wait/releases/download/2.7.3/wait
 RUN chmod +x $APP_HOME/bin/wait
 
 COPY . $APP_HOME
+
+COPY deploy/run.sh /run.sh
+
+CMD ["/bin/bash", "/run.sh"]

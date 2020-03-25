@@ -17,7 +17,6 @@ services:
 
   app:
     build: ..
-    command: sh -c "./bin/wait && bundle exec hanami server --server=puma --host 0.0.0.0"
     working_dir: /app
     stdin_open: true
     tty: true
