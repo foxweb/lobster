@@ -14,18 +14,21 @@ class CreateImage
 private
   attr_reader :params
 
-  def storage
-    @storage ||= Fog::Storage.new(
-      provider:               'OpenStack',
-      openstack_auth_url:     'http://127.0.0.1:8080',
-      openstack_api_key:      'testing',
-      openstack_username:     'test:tester',
-      openstack_project_name: 'project30',
+  def connection_params
+    {
+      openstack_auth_url:     'http://swift:35357',
+      openstack_username:     'demo',
+      openstack_api_key:      'demo',
+      persistent:             false,
       openstack_domain_id:    'default',
       openstack_cache_ttl:    60,
-      persistent:             false,
-      openstack_tenant:       nil,
-      openstack_temp_url_key: nil
-    )
+      openstack_project_name: 'test',
+      openstack_temp_url_key: nil,
+      provider:               'OpenStack'
+    }
+  end
+
+  def storage
+    @storage ||= Fog::Storage.new(connection_params)
   end
 end

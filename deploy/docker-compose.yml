@@ -9,6 +9,8 @@ services:
       KS_SWIFT_PUBLIC_URL: http://127.0.0.1:8080
   database:
     image: postgres:12.2-alpine
+    ports:
+      - 5433:5432
     volumes:
       - db-data:/var/lib/postgresql/data:cached
     environment:
