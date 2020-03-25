@@ -2,11 +2,11 @@ version: '3.5'
 services:
   swift:
     image: khataev/openstack-keystone-swift
-     ports:
-       - 8080:8080
-     environment:
-       SWIFT_DEFAULT_CONTAINER: 'imageserver'
-       KS_SWIFT_PUBLIC_URL: 'http://127.0.0.1:8080'
+    ports:
+      - 8080:8080
+    environment:
+      SWIFT_DEFAULT_CONTAINER: imageserver
+      KS_SWIFT_PUBLIC_URL: http://127.0.0.1:8080
   database:
     image: postgres:12.2-alpine
     volumes:
