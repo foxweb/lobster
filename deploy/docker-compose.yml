@@ -4,6 +4,7 @@ services:
     image: khataev/openstack-keystone-swift
     ports:
       - 8080:8080
+      - 35357:35357
     environment:
       SWIFT_DEFAULT_CONTAINER: imageserver
       KS_SWIFT_PUBLIC_URL: http://127.0.0.1:8080
@@ -29,19 +30,8 @@ services:
       - 2300:2300
     depends_on:
       - database
-    environment:
-      WAIT_HOSTS: database:5432
-      APP_NAME: lobster
-      HANAMI_ENV: $HANAMI_ENV
-      DATABASE_URL: "postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@database/${POSTGRES_DB}"
-      NEWRELIC_LICENCE_KEY: a120d22ff332a989124bbbe45863f80495495290
-      AIRBRAKE_PROJECT_ID: 252545
-      AIRBRAKE_PROJECT_KEY: 61279a35016b41b7c0043edec2c2a3adv
-      SMTP_HOST:
-      SMTP_PORT:
-      SMTP_DOMAIN:
-      SMTP_USER:
-      SMTP_PASSWORD:
+    env_file:
+      - .env
 
   rabbitmq:
     image: rabbitmq:3.7-management-alpine

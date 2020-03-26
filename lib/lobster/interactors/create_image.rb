@@ -16,15 +16,15 @@ private
 
   def connection_params
     {
-      openstack_auth_url:     'http://swift:35357',
-      openstack_username:     'demo',
-      openstack_api_key:      'demo',
-      persistent:             false,
-      openstack_domain_id:    'default',
-      openstack_cache_ttl:    60,
-      openstack_project_name: 'test',
-      openstack_temp_url_key: nil,
-      provider:               'OpenStack'
+      openstack_auth_url:     ENV['OPENSTACK_AUTH_URL'],
+      openstack_username:     ENV['OPENSTACK_USERNAME'],
+      openstack_api_key:      ENV['OPENSTACK_API_KEY'],
+      persistent:             ENV['OPENSTACK_PERSISTENT'],
+      openstack_domain_id:    ENV['OPENSTACK_DOMAIN_ID'],
+      openstack_cache_ttl:    ENV['OPENSTACK_CACHE_TTL'].to_i,
+      openstack_project_name: ENV['OPENSTACK_PROJECT_NAME'],
+      openstack_temp_url_key: ENV['OPENSTACK_TEMP_URL_KEY'],
+      provider:               ENV['OPENSTACK_PROVIDER']
     }
   end
 
