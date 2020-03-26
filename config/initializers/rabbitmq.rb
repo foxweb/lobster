@@ -1,45 +1,29 @@
-class RabbitConnectionManager
-  class << self
-    def channel
-      reconnect unless connected? && active_channel&.open?
-      active_channel
-    end
+class Rabbit
+  def initialize(connection_settings = default_connection_settings)
+    @connection = Bunny.new(connection_settings)
+    connection.start
+    @channel = connection.create_channel
+  end
 
-    def close!
-      active_channel&.close
-      active_connection&.close
+  def channel
+    if connection.connected? && @channel.open?
+      @channel
+    else
+      connection.stop && connection.start
+      @channel = connection.create_channel
     end
+  end
 
-  private
-    attr_reader :active_connection, :active_channel
+private
+  attr_reader :connection
 
-    def hosts
-      Oj.load(ENV.fetch('APP_RABBITMQ_HOSTS_JSON', '["localhost"]'))
-    end
-
-    def connection_settings
-      @connection_settings ||= {
-        hosts:              hosts,
-        vhost:              ENV.fetch('APP_RABBITMQ_VHOST', 'lobster'),
-        user:               ENV.fetch('APP_RABBITMQ_USER', 'guest'),
-        password:           ENV.fetch('APP_RABBITMQ_PASSWORD', 'guest'),
-        heartbeat_interval: 20
-      }
-    end
-
-    def establish_connection
-      @active_connection = Bunny.new(connection_settings)
-      active_connection.start
-      @active_channel = active_connection.create_channel
-    end
-
-    def reconnect
-      close!
-      establish_connection
-    end
-
-    def connected?
-      active_connection&.connected?
-    end
+  def default_connection_settings
+    {
+      hosts:              ENV['APP_RABBITMQ_HOSTS'].split(','),
+      vhost:              ENV['APP_RABBITMQ_VHOST'],
+      user:               ENV['APP_RABBITMQ_USER'],
+      password:           ENV['APP_RABBITMQ_PASSWORD'],
+      heartbeat_interval: 20
+    }
   end
 end

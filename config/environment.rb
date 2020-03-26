@@ -2,7 +2,6 @@ require 'bundler/setup'
 require 'hanami/setup'
 require 'hanami/model'
 require_relative './db_schema'
-require_relative '../lib/lobster'
 require_relative '../apps/api/application'
 
 Hanami.configure do # rubocop:disable Metrics/BlockLength
