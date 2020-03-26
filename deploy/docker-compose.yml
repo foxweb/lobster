@@ -43,6 +43,16 @@ services:
       SMTP_USER:
       SMTP_PASSWORD:
 
+  rabbitmq:
+    image: rabbitmq:3.7-management-alpine
+    ports:
+      - 15672:15672
+      - 5672:5672
+    environment:
+      RABBITMQ_DEFAULT_USER: $APP_RABBITMQ_USER
+      RABBITMQ_DEFAULT_PASS: $APP_RABBITMQ_PASSWORD
+      RABBITMQ_DEFAULT_VHOST: $APP_RABBITMQ_VHOST
+
 volumes:
   db-data: null
   bundle-cache: null
