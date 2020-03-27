@@ -3,12 +3,21 @@ require 'hanami/interactor'
 class CreateImage
   include Hanami::Interactor
 
+  DIRNAME = 'attachments'.freeze
+
+  expose :uploaded_file
+
   def initialize(params)
     @params = params
   end
 
   def call
-    binding.pry
+    check_params
+    check_filename
+    error!(file: ["doesn't exist"]) unless local_file.exist?
+    @uploaded_file = directory.files.create(payload)
+  rescue Excon::Error
+    error!(file: ['is not uploaded'])
   end
 
 private
@@ -30,5 +39,28 @@ private
 
   def storage
     @storage ||= Fog::Storage.new(connection_params)
+  end
+
+  def directory
+    storage.directories.create(key: DIRNAME)
+  end
+
+  def local_file
+    Hanami.root.join('tmp', params[:filename])
+  end
+
+  def payload
+    {
+      key:  params[:filename],
+      body: File.open(local_file)
+    }
+  end
+
+  def check_filename
+    error!(file: ['invalid path']) if params[:filename].empty?
+  end
+
+  def check_params
+    error!(file: ['invalid params']) if params[:filename].nil?
   end
 end
