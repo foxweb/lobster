@@ -1,4 +1,8 @@
 class User < Hanami::Entity
+  def can?(action, subject)
+    permissions.include?([action.to_s, subject.to_s])
+  end
+
   def password_correct?(password)
     BCrypt::Password.new(password_digest) == password
   end
@@ -14,6 +18,10 @@ class User < Hanami::Entity
 
   def active?
     active
+  end
+
+  def permissions
+    RoleRepository.new.find_by_name(role).permissions
   end
 
   class << self

@@ -4,6 +4,7 @@ admin:
   - [edit, users]
   - [enable, users]
   - [disable, users]
+  - [upload, images]
 
 support:
   # - [edit, role]
@@ -12,9 +13,10 @@ support:
   - [enable, users]
   - [disable, users]
 
-user: []
+user:
   # - [edit, role]
   # - [change_permissions, user]
   # - [edit, users]
   # - [enable, users]
   # - [disable, users]
+  - [upload, images]

@@ -1,5 +1,5 @@
 require 'hanami/helpers'
-require 'hanami/assets'
+require_relative './controllers/rendering'
 
 module Api
   class Application < Hanami::Application
@@ -45,8 +45,8 @@ module Api
 
       controller.prepare do
         include Api::Controllers::Rendering
-        # include Api::Controllers::Authorization
-        # before :authorize!
+        include Api::Controllers::Authorization
+        before :authorize!
         include Api::Controllers::Application
         before :check_params!
       end
