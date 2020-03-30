@@ -7,7 +7,7 @@ RSpec.describe CreateImage do
   let(:local_file)  { instance_double('Local file object') }
 
   let(:params) do
-    { filename: 'swift_debug' }
+    { temp_path: 'swift_debug' }
   end
 
   let(:storage) do
@@ -35,7 +35,7 @@ RSpec.describe CreateImage do
 
     context 'with invalid params' do
       let(:params) do
-        { filename: '4th-september.jpg' }
+        { temp_path: '4th-september.jpg' }
       end
 
       it 'returns errors' do
@@ -67,7 +67,7 @@ RSpec.describe CreateImage do
 
     context 'with empty filename' do
       let(:params) do
-        { filename: '' }
+        { temp_path: '' }
       end
 
       it 'returns errors' do

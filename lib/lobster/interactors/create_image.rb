@@ -46,21 +46,21 @@ private
   end
 
   def local_file
-    Hanami.root.join('tmp', params[:filename])
+    Hanami.root.join('tmp', params[:temp_path])
   end
 
   def payload
     {
-      key:  params[:filename],
+      key:  params[:temp_path],
       body: File.open(local_file)
     }
   end
 
   def check_filename
-    error!(file: ['invalid path']) if params[:filename].empty?
+    error!(file: ['invalid path']) if params[:temp_path].empty?
   end
 
   def check_params
-    error!(file: ['invalid params']) if params[:filename].nil?
+    error!(file: ['invalid params']) if params[:temp_path].nil?
   end
 end
