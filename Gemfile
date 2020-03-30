@@ -38,6 +38,7 @@ group :development do
   gem 'terminal-notifier-guard'
 
   gem 'rubocop', require: false
+  gem 'rubocop-rspec', require: false
   gem 'rubocop-performance'
 end
 
