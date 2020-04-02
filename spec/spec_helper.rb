@@ -37,6 +37,12 @@ RSpec.configure do |config|
   end
 end
 
+RSpec::Matchers.define :eq_timestamp do |expected|
+  match do |actual|
+    (actual - expected).abs <= 2
+  end
+end
+
 Factory = ROM::Factory.configure do |c|
   c.rom = Hanami::Model.container
 end
