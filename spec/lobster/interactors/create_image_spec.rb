@@ -7,7 +7,7 @@ RSpec.describe CreateImage do
   let(:local_file)  { instance_double('Local file object') }
 
   let(:params) do
-    { temp_path: 'swift_debug' }
+    { temp_path: './spec/fixtures/image.jpg' }
   end
 
   let(:storage) do

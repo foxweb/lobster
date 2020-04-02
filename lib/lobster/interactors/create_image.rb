@@ -46,7 +46,7 @@ private
   end
 
   def local_file
-    Hanami.root.join('tmp', params[:temp_path])
+    Hanami.root.join(params[:temp_path])
   end
 
   def payload
