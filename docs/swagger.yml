@@ -1,0 +1,129 @@
+openapi: 3.0.0
+info:
+  description: Lobster backend API
+  version: 0.0.1
+  title: Lobster API
+  contact:
+    email: alexey.kurepin@balance-pl.ru
+host: localhost:2300
+schemes:
+  - http
+produces:
+  - application/json
+consumes:
+  - application/json
+
+tags:
+  - name: Authentication
+    description: Operations on access tokens
+  - name: Images
+    description: Operations on images in the gallery
+
+paths:
+  /health_check:
+    get:
+      tags:
+        - Health check
+      summary: Health check
+      security: []
+      responses:
+        200:
+          description: Health check successful
+
+  /authenticate:
+    post:
+      tags:
+        - Authentication
+      summary: Authenticate the client
+      security: []
+      parameters:
+        - in: body
+          name: credentials
+          schema:
+            type: object
+            required:
+              - email
+              - password
+            properties:
+              email:
+                type: string
+              password:
+                type: string
+            example:
+              email: admin@example.com
+              password: secret
+      responses:
+        200:
+          description: Authentication successful
+          headers:
+            X-Access-Token:
+              type: string
+              description: Personal access token with a 30 minutes TTL
+        403:
+          description: User is disabled
+        422:
+          description: Authentication failed
+          schema:
+            type: object
+            properties:
+              email:
+                $ref: "#/definitions/ParameterErrors"
+              password:
+                $ref: "#/definitions/ParameterErrors"
+            example:
+              password: ['is incorrect']
+
+  /new_token:
+    get:
+      tags:
+        - Authentication
+      summary: Exchange an expired token for a new one
+      responses:
+        200:
+          description: Refresh successful
+          headers:
+            X-Access-Token:
+              type: string
+              description: A new token
+        401:
+          description: Token expired more than a day ago
+
+  /images/upload:
+    post:
+      tags:
+        - Images
+      summary: Upload a new gallery image
+      consumes:
+        - multipart/form-data
+      parameters:
+        - in: formData
+          name: file
+          type: file
+          required: true
+          description: The file to upload.
+      responses:
+        201:
+          description: Image uploaded successfully
+        422:
+          description: Failed to upload gallery image
+          schema:
+            type: object
+            properties:
+              filename:
+                $ref: "#/definitions/ParameterErrors"
+              content_type:
+                $ref: "#/definitions/ParameterErrors"
+              temp_path:
+                $ref: "#/definitions/ParameterErrors"
+            example:
+              filename: ['must be filled']
+              content_type: ['must be filled']
+              temp_path: ['must be filled']
+
+
+
+definitions:
+    ParameterErrors:
+    type: array
+    items:
+      type: string
