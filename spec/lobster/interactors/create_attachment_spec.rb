@@ -1,4 +1,4 @@
-RSpec.describe CreateImage do
+RSpec.describe CreateAttachment do
   subject(:create_image) { described_class.new(params) }
 
   let(:directories) { instance_double('Swift directories object') }

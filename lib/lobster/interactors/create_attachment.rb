@@ -1,6 +1,6 @@
 require 'hanami/interactor'
 
-class CreateImage
+class CreateAttachment
   include Hanami::Interactor
 
   DIRNAME = 'attachments'.freeze
