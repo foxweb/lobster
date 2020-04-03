@@ -1,11 +1,14 @@
 require 'bundler/setup'
 require 'hanami/setup'
 require 'hanami/model'
+require 'hanami/middleware/body_parser'
 require_relative './db_schema'
 require_relative '../apps/api/application'
 
 Hanami.configure do # rubocop:disable Metrics/BlockLength
   mount Api::Application, at: '/'
+
+  middleware.use Hanami::Middleware::BodyParser, :json
 
   model do
     adapter :sql, ENV.fetch('DATABASE_URL')
