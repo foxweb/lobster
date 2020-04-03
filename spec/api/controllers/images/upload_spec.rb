@@ -1,10 +1,10 @@
 RSpec.describe Api::Controllers::Images::Upload, type: :action do
   let(:action) { described_class.new }
-  let(:object) { instance_double('CreateImage object') }
-  let(:result) { instance_double('CreateImage result') }
+  let(:object) { instance_double('CreateAttachment object') }
+  let(:result) { instance_double('CreateAttachment result') }
 
   before do
-    allow(CreateImage).to receive(:new).and_return(object)
+    allow(CreateAttachment).to receive(:new).and_return(object)
     allow(object).to receive(:call).and_return(result)
     # allow(object).to receive(:duplicate).and_return(nil)
     allow(result).to receive(:uploaded_file).and_return(an_instance_of(Hash))
