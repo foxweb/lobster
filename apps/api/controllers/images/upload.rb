@@ -13,7 +13,7 @@ module Api
         end
 
         def call(*)
-          result = CreateImage.new(image_data).call
+          result = CreateAttachment.new(image_data).call
 
           if result.success?
             render_raw(201, result.uploaded_file)
