@@ -1,6 +1,6 @@
 class User < Hanami::Entity
-  def can?(action, subject)
-    permissions.include?([action.to_s, subject.to_s])
+  def can?(action, subject, role)
+    role.permissions.include?([action.to_s, subject.to_s])
   end
 
   def password_correct?(password)
@@ -18,10 +18,6 @@ class User < Hanami::Entity
 
   def active?
     active
-  end
-
-  def permissions
-    RoleRepository.new.find_by_name(role).permissions
   end
 
   class << self

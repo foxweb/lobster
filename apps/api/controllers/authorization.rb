@@ -35,7 +35,7 @@ module Api
       def current_user_has_permission?
         self.class.acl_action.nil? ||
           self.class.acl_subject.nil? ||
-          current_user.can?(self.class.acl_action, self.class.acl_subject)
+          current_user.can?(self.class.acl_action, self.class.acl_subject, role)
       end
 
       def current_user
@@ -57,6 +57,10 @@ module Api
         end
       rescue JWT::DecodeError # rubocop:disable Lint/SuppressedException
         # token is expired or malformed
+      end
+
+      def role
+        RoleRepository.new.find_by_name(current_user.role)
       end
     end
   end
