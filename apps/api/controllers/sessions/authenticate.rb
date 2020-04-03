@@ -11,7 +11,7 @@ module Api
           required(:password) { filled? & str? }
         end
 
-        def call(params)
+        def call(*)
           if (user = find_user) && user.password_correct?(params[:password])
             render_forbidden unless user.active?
 
