@@ -1,6 +1,8 @@
 require 'db_schema'
 
 DbSchema.describe do |db|
+  db.extension 'uuid-ossp'
+
   db.enum :role, %w[admin support user]
 
   db.table :roles do |t|
@@ -18,6 +20,17 @@ DbSchema.describe do |db|
     t.bigint  :phone,           check: 'phone < 100000000000'
 
     t.boolean :active, null: false, default: true
+
+    t.timestamptz :created_at, null: false
+    t.timestamptz :updated_at, null: false
+  end
+
+  db.table :attachments do |t|
+    t.uuid    :id,          primary_key: true
+    t.varchar :filename,    null: false
+    t.varchar :extension,   null: false
+    t.boolean :visible,     null: false, default: true
+    t.integer :uploaded_by, null: false, references: :users
 
     t.timestamptz :created_at, null: false
     t.timestamptz :updated_at, null: false
